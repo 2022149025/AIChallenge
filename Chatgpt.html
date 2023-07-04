@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>WEBEZ</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" href="Chatgpt.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type = "text/javascript" src = "apikey.js"></script>
+  <style>
+    /* page-loading */
+    #loading {
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      position: fixed;
+      display: block;
+      opacity: 0.6;
+      background: #e4e4e4;
+      z-index: 99;
+      text-align: center;
+    }
+
+    #loading>img {
+      position: absolute;
+      top: 40%;
+      left: 45%;
+      z-index: 100;
+    }
+
+    #loading>p {
+      position: absolute;
+      top: 57%;
+      left: 43%;
+      z-index: 101;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+        <div><img src="image/WEBEZ.png" alt="WEBEZ" id="logo_img" onclick="location.href='main.html'"></div>
+        <div id="head_rightbox">
+            <div id="Tier_box">
+                <img src="image/Gold.png" alt="Tier" id="tier_img">
+                <p id="tier_text">티어 : GOLD</p>
+            </div>
+            <img src="image/Menu.png" alt="Menu" id="menu_img">
+        </div>
+    </nav>
+</header>
+<section>
+  <div id="head_text">
+    <span id="head_step"></span>
+    <span id="head_stepname"></span>
+    <span id="head_stepinfor"></span>
+  </div>
+  
+  <div id="loading">
+    <img src="https://studentrights.sen.go.kr/images/common/loading.gif" alt="page-loading">
+  </div>
+
+  <div id="container">
+    <div id="question"></div>
+
+    <div id="Button_box">
+      <button id="showAnswerButton">정답 보기</button>
+      <button id="regeneration">다시 생성</button>
+    </div>
+  </div>
+
+  <pre id="answer"></pre>
+</section>
+<footer>
+  <span>&copy; 독수리오형제</span>
+</footer>
+
+  
+<script>
+  if(localStorage.getItem('key')){
+    var index_number = localStorage.getItem('key')
+  }
+
+  window.onload = generate;
+
+  $(document).ready(function () {
+    $('#loading').hide();
+  });
+
+  function generate(){
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'data.json', true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        var jsonData = JSON.parse(xhr.responseText);
+        chatGPT(jsonData);
+      }
+    };
+    xhr.send();
+
+    function chatGPT(dataJson) {
+      question.innerHTML = '';
+      answer.innerHTML = '';
+      index_number *= 1;
+      document.getElementById("head_step").innerText = "Step" + (index_number+1);
+      index_number += "";
+      document.getElementById("head_stepname").innerText = dataJson[index_number].stepName;
+      document.getElementById("head_stepinfor").innerText = ": " + dataJson[index_number].stepInfo;
+      const api_key = config.apikey;  // <- API KEY 입력
+      $('#loading').show();
+
+      const messages = [
+        { role: 'system', content: '너는 문제 출제자야.' },
+        { role: 'user', content: dataJson[index_number].prompt+'이 때, 설명 없이 코드만 생성해줘.'+'그리고 <html>태그, <head>태그 부분은 코드에 넣지 말아줘.>'+ dataJson[index_number].extra_condition },
+      ]
+
+      const data = {
+        model: 'gpt-3.5-turbo',
+        temperature: 1.2,
+        n: 1,
+        messages: messages,
+      }
+
+      $.ajax({
+        url: "https://api.openai.com/v1/chat/completions",
+        method: 'POST',
+        headers: {
+          Authorization: "Bearer " + api_key,
+          'Content-Type': 'application/json',
+        },
+        data: JSON.stringify(data),
+      }).then(function (response) {
+        $('#loading').hide();
+        console.log(response)
+        let question = document.getElementById('question')
+        let pre = document.createElement('pre')
+
+        pre.innerHTML = response.choices[0].message.content + "\n" + dataJson[index_number].problem_sentence;
+        question.appendChild(pre)
+
+        document.getElementById("showAnswerButton").addEventListener('click', showAnswer);
+        document.getElementById("regeneration").addEventListener('click', generate);
+
+        function showAnswer(){
+          answer.innerHTML = '';
+          answer = document.getElementById('answer')
+          answerText = document.createElement('answerText')
+
+          answerText.innerText = "\n\n" + response.choices[0].message.content
+          answer.appendChild(answerText)
+        }
+    });
+  }
+}
+  
+  
+</script>
+</body>
+</html>
