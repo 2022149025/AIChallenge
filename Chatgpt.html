@@ -7,7 +7,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script type = "text/javascript" src = "apikey.js"></script>
   <style>
     /* page-loading */
     #loading {
@@ -109,7 +108,7 @@
       index_number += "";
       document.getElementById("head_stepname").innerText = dataJson[index_number].stepName;
       document.getElementById("head_stepinfor").innerText = ": " + dataJson[index_number].stepInfo;
-      const api_key = config.apikey;  // <- API KEY 입력
+      const api_key = API_KEY;  // <- API KEY 입력
       $('#loading').show();
 
       const messages = [

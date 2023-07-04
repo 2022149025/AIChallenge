@@ -1,0 +1,11 @@
+jobs:
+  release-ios:
+    name: APIKEY
+    runs-on: ubuntu-latest
+    steps:
+      - name: access to secrets
+        run: |
+          echo "API_KEY=$API_KEY" >> .env
+        env:
+          MAP_API_KEY: ${{secrets.API_KEY}}
+          
