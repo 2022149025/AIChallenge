@@ -11,4 +11,4 @@
 
         - name: Access Secrets
           run : |
-            echo "API_KEY : ${{secrets.API_KEY}}"
+            echo "API_KEY : ${{secrets.API_KEY}}" >> .env
