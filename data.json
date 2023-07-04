@@ -1,0 +1,90 @@
+[
+    {
+        "index_number":0,
+        "prompt":"console.log로 여러 가지 메시지를 출력하는 문제를 만들어줘.",
+        "extra_condition":"",
+        "stepName":"콘솔 출력 익히기",
+        "stepInfo":"웹의 기본적인 출력을 연습해보아요",
+        "problem_sentence":"위 문서를 javascript를 이용하여 구현하세요."
+    },
+    {
+        "index_number":1,
+        "prompt":"html의 기본적인 tag를 활용하는 문제를 만들어줘",
+        "extra_condition":"",
+        "stepName":"기본 tag 익히기",
+        "stepInfo":"html의 기본적인 tag들의 사용법에 대해 연습해보아요",
+        "problem_sentence":"위 문서를 HTML을 이용하여 구현하세요."
+    },
+    {
+        "index_number":2,
+        "prompt":"html로 image를 출력하는 문제를 만들어줘.",
+        "extra_condition":"이 때 이미지 링크는 https://picsum.photos/250/250로, alt는 random_image로 해 줘.",
+        "stepName":"image 익히기",
+        "stepInfo":"image에 대한 다양한 기능을 연습해보아요",
+        "problem_sentence":"위 문서를 HTML을 이용하여 구현하세요. 이미지의 링크는 https://picsum.photos/250/250이고, alt는 random_image로 설정합니다."
+    },
+    {
+        "index_number":3,
+        "prompt":"html의 div 태그를 활용하는 문제를 만들어줘.",
+        "extra_condition":".",
+        "stepName":"div 익히기",
+        "stepInfo":"div를 자유자재로 활용하는 법을 연습해보아요",
+        "problem_sentence":"위 문서를 HTML을 이용하여 구현하세요."
+    },
+    {
+        "index_number":4,
+        "prompt":"html의 input 태그를 활용하는 문제를 만들어줘.",
+        "extra_condition":".",
+        "stepName":"input 익히기",
+        "stepInfo":"사용자에게 다양한 입력값을 받는 방법을 연습해보아요",
+        "problem_sentence":"위 문서를 HTML을 이용하여 구현하세요."
+    },
+    {
+        "index_number":5,
+        "prompt":"html의 list를 활용하는 문제를 만들어줘. li 태그 말하는 거야.",
+        "extra_condition":"",
+        "stepName":"list 익히기",
+        "stepInfo":"다양한 list의 형태를 구현하는 것을 연습해보아요",
+        "problem_sentence":"위 문서를 HTML을 이용하여 구현하세요."
+    },
+    {
+        "index_number":6,
+        "prompt":"html로 학생의 성적을 관리하는 table을 작성하는 문제를 만들어줘.",
+        "extra_condition":".",
+        "stepName":"table 익히기",
+        "stepInfo":"table을 만드는 법을 연습해보아요",
+        "problem_sentence":"위 문서를 HTML을 이용하여 구현하세요."
+    },
+    {
+        "index_number":7,
+        "prompt":"html의 form 태그와 여러 가지 input들을 활용하는 문제를 만들어줘.",
+        "extra_condition":"",
+        "stepName":"form 익히기",
+        "stepInfo":"form에 대해 연습해보아요",
+        "problem_sentence":"위 문서를 HTML을 이용하여 구현하세요."
+    },
+    {
+        "index_number":8,
+        "prompt":"html의 nav 태그를 활용하는 문제를 만들어줘.",
+        "extra_condition":".",
+        "stepName":"nav 익히기",
+        "stepInfo":"nav를 만드는 법을 연습해보아요",
+        "problem_sentence":"위 문서를 HTML을 이용하여 구현하세요."
+    },
+    {
+        "index_number":9,
+        "prompt":"css 스타일의 기본적인 기능들을 활용하는 문제를 만들어줘.",
+        "extra_condition":"",
+        "stepName":"다양한 css 익히기(기본)",
+        "stepInfo":"기본적인 css에 대해 연습해보아요",
+        "problem_sentence":"위 문서를 HTML과 CSS를 이용하여 구현하세요."
+    },
+    {
+        "index_number":10,
+        "prompt":"css 스타일의 심화적인 기능들을 활용하는 문제를 만들어줘.",
+        "extra_condition":"",
+        "stepName":"다양한 css 익히기(심화)",
+        "stepInfo":"심화적인 css에 대해 연습해보아요",
+        "problem_sentence":"위 문서를 HTML과 CSS를 이용하여 구현하세요."
+    }
+]

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WEBEZ</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="problem.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header>
+        <nav>
+            <div><img src="image/WEBEZ.png" alt="WEBEZ" id="logo_img" onclick="location.href='main.html'"></div>
+            <div id="head_rightbox">
+                <div id="Tier_box">
+                    <img src="image/Gold.png" alt="Tier" id="tier_img">
+                    <p id="tier_text">티어 : GOLD</p>
+                </div>
+                <img src="image/Menu.png" alt="Menu" id="menu_img">
+            </div>
+        </nav>
+    </header>
+    <section>
+        <div id="head_text">
+            <span id="head_step"></span>
+            <span id="head_stepname"></span>
+            <span id="head_stepinfor"></span>
+        </div>
+        <div id="chatgpt_container">
+            <img src="image/Chatgpt.webp" alt="ChatGPT" id="chatgpt_img">
+            <div>
+                <p id="chatgpt_text"><span style="color: #2D45EA; font-size: 40px;">ChatGPT</span>가 다양한 유형의 문제를 만들어줘요!</p>
+                <button onclick ="location.href='Chatgpt.html'">문제 생성</button>
+            </div>
+        </div>
+        
+    </section>
+    <footer>
+        <span>&copy; 독수리오형제</span>
+    </footer>
+    <script>
+        var queryString = window.location.search;
+        var params = new URLSearchParams(queryString);
+
+        var index = params.get('index');
+
+        localStorage.setItem('key',index);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'data.json', true);
+        xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var jsonData = JSON.parse(xhr.responseText);
+            showStep(jsonData);
+        }
+        };
+        xhr.send();
+
+        function showStep(dataJson){
+            index *= 1;
+            document.getElementById("head_step").innerText = "Step" + (index+1);
+            index += "";
+            document.getElementById("head_stepname").innerText = dataJson[index].stepName;
+            document.getElementById("head_stepinfor").innerText = ": " + dataJson[index].stepInfo;
+        }
+    </script>
+</body>
+</html>

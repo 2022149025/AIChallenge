@@ -1,0 +1,83 @@
+/* styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Caprasimo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700&display=swap');
+
+
+html, body {
+    font-family: Arial, sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    border-bottom : 5px solid #2D45EA;
+}
+
+nav {
+    height: 100px;
+    padding: 0 15px 0 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#logo_img{
+    width: 220px;
+    cursor: pointer;
+}
+
+#head_rightbox{
+    width: 330px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#Tier_box{
+    width: 240px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3rem;
+    box-shadow: 2px 3px 6px #7A8187;
+}
+
+#tier_img{
+    width: 40px;
+    height: 40px;
+    padding-right: 10px;
+}
+
+#tier_text{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 25px;
+}
+
+#menu_img{
+    width: 60px;
+    height: 50px;
+    cursor: pointer;
+}
+
+#menu_img:hover body{
+    opacity: 0.5;
+}
+
+section {   
+    min-height: calc(100% - 130px);
+    padding-top: 5px;
+    text-align: center;
+    background-color: #E6ECFF;
+}
+
+footer {
+    height: 30px;
+    padding : 0 10px 10px 0;
+    background-color: #E6ECFE;
+    color: black;
+    text-align: right;
+    align-items: center;
+}

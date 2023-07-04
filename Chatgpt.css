@@ -1,0 +1,88 @@
+*{
+    text-align: left;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 18px;
+}
+
+#head_text{
+    display: flex;
+    justify-content: left;
+    padding: 30px;
+    color: white;
+    font-size: 3.5rem;
+}
+
+#head_step{
+    font-weight: 700;
+    font-size: 50px;
+    color: #707070;
+}
+
+#head_stepname{
+    padding-left: 20px;
+    font-weight: 700;
+    font-size: 50px;
+    text-shadow: 1px 3px 6px #7A8187;
+}
+
+#head_stepinfor{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+    font-weight: 700;
+    font-size: 40px;
+    text-shadow: 1px 3px 6px #7A8187;
+}
+
+#container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#question, #answer{
+    padding-left: 30px;
+}
+
+#question{
+    width: 90%;
+    background-color: white;
+    border-radius: 2rem;
+    box-shadow: 3px 3px 10px #7A8187;
+}
+
+#Button_box{
+    padding-top: 50px;
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+
+button{
+    width: 250px;
+    height: 90px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700; 
+    font-size: 35px;
+    text-shadow: 1px 3px 6px #030f5c;
+    border-radius: 3rem;
+    background-color: #2D45EA;
+    color: white;
+    border: none;
+    box-shadow: 1px 3px 6px #030f5c;
+    text-align: center;
+}
+
+button:hover{
+    font-size: 40px;
+    color: #FFDA46;
+    transition: .3s;
+    cursor: pointer;
+}
+
+
+pre{
+    margin: 0;
+}
