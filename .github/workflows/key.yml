@@ -15,4 +15,4 @@ jobs:
 
       - name: Modify File
         run: |
-          sed -i 's/OPENAIKEY/modified_text/g' Chatgpt.html
+          sed -i 's/OPENAIKEY/modified_text/g' ./Chatgpt.html
