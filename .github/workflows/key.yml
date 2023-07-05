@@ -1,13 +1,18 @@
-  name: Test
-  on:
-    push:
-      branches:
-        - main
-  jobs:
-    build:
-      runs-on: ubuntu-latest
+name: Update File
 
-      steps:
-        - name: install ejs
-          run: |
-           npm install ejs
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-file:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Modify File
+        run: |
+          sed -i 's/OPENAIKEY/modified_text/g' Chatgpt.html.txt
