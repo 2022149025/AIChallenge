@@ -7,6 +7,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
   <style>
     /* page-loading */
     #loading {
@@ -41,7 +42,7 @@
 <body>
   <header>
     <nav>
-        <div><img src="image/WEBEZ.png" alt="WEBEZ" id="logo_img" onclick="location.href='main.html'"></div>
+        <div><img src="image/WEBEZ.png" alt="WEBEZ" id="logo_img" onclick="location.href='index.html'"></div>
         <div id="head_rightbox">
             <div id="Tier_box">
                 <img src="image/Gold.png" alt="Tier" id="tier_img">
@@ -65,23 +66,65 @@
   <div id="container">
     <div id="question"></div>
 
+    <p id="input_text">ChatGPT에게 코드 피드백을 받아보아요 !</p>
+
+    
+    <div id="input_box">
+      <div id="grow-wrap">
+        <textarea rows="1" name="text" id="answer_input" onInput="this.parentNode.dataset.replicatedValue = this.value" placeholder="코드를 입력하세요."></textarea>
+      </div>
+      <button id="answer_button">제출</button>
+    </div>
+
     <div id="Button_box">
+      <button id="showFeedbackButton">피드백 보기</button>
       <button id="showAnswerButton">정답 보기</button>
       <button id="regeneration">다시 생성</button>
     </div>
-  </div>
+  
 
-  <pre id="answer"></pre>
+    <pre id="answer"></pre>
+    <pre id="feedback"></pre>
+
+    <div id="PassKeep_box">
+      <button id="Pass_button" onclick='count("Pass")'>✔</button>
+      <button id="Keep_button" onclick='count("Keep")'>X</button>
+    </div>
+
+  </div>
 </section>
 <footer>
   <span>&copy; 독수리오형제</span>
 </footer>
-
-  
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 <script>
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+  apiKey: "AIzaSyB3njPV7US4GsF5h9gyvRr93vlMkvqe_BQ",
+  authDomain: "webez-f30ae.firebaseapp.com",
+  projectId: "webez-f30ae",
+  storageBucket: "webez-f30ae.appspot.com",
+  messagingSenderId: "924574757689",
+  appId: "1:924574757689:web:8e5b7ae658a56c6bafeee8",
+  measurementId: "G-KPJLVQRRYQ"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  // Access Firestore
+  const db = firebase.firestore();
+
   if(localStorage.getItem('key')){
     var index_number = localStorage.getItem('key')
   }
+  index_number*=1;
+  var stepNum = index_number + 1;
+  index_number+="";
+  stepNum+="";
+  console.log(stepNum);
+  const docRef = db.collection("pass_keep_data").doc(stepNum);
 
   window.onload = generate;
 
@@ -103,6 +146,7 @@
     function chatGPT(dataJson) {
       question.innerHTML = '';
       answer.innerHTML = '';
+      document.getElementById("answer_input").value = '';
       index_number *= 1;
       document.getElementById("head_step").innerText = "Step" + (index_number+1);
       index_number += "";
@@ -144,6 +188,7 @@
 
         document.getElementById("showAnswerButton").addEventListener('click', showAnswer);
         document.getElementById("regeneration").addEventListener('click', generate);
+        document.getElementById("answer_button").addEventListener('click', submit);
 
         function showAnswer(){
           answer.innerHTML = '';
@@ -153,11 +198,106 @@
           answerText.innerText = "\n\n" + response.choices[0].message.content
           answer.appendChild(answerText)
         }
+
+        function submit(){
+          $('#loading').show();
+          txtBox = document.getElementById("answer_input");
+          answerValue = txtBox.value;
+
+          const messages2 = [
+            { role: 'user', content: '문제를 하나 줄게. 문제는 '+ response.choices[0].message.content + dataJson[index_number].problem_sentence + '야.'},
+            { role: 'system', content: '너는 문제 채점을 해야 해.' },
+            { role: 'user', content: answerValue + '이 코드가 문제의 정답인지를 채점해 줘. 만약 틀렸다면 어느 부분이 틀렸는지도 알려 줘.'},
+          ]
+
+          const data2 = {
+            model: 'gpt-3.5-turbo',
+            temperature: 0.7,
+            n: 1,
+            messages: messages2,
+          }
+          $.ajax({
+          url: "https://api.openai.com/v1/chat/completions",
+          method: 'POST',
+          headers: {
+            Authorization: "Bearer " + api_key,
+            'Content-Type': 'application/json',
+          },
+          data: JSON.stringify(data2),
+        }).then(function (response) {
+          $('#loading').hide();
+          console.log(response)
+          let answerBox = document.getElementById('feedback')
+          let feedback = document.createElement('pre')
+
+          feedback.innerText = response.choices[0].message.content + "\n";
+          answerBox.appendChild(feedback)
+          txtBox.value = ' ';
+        });
+      }
     });
   }
 }
-  
-  
+
+
+// Show answer or feedback
+$(document).ready(function() {
+    $ ('#answer').hide();
+    $ ('#feedback').hide();
+    $('#showAnswerButton').click(function(){
+        $ ('#answer').show(); 
+        $ ('#feedback').hide(); 
+        return false;
+    });
+    $('#showFeedbackButton').click(function(){
+        $ ('#answer').hide(); 
+        $ ('#feedback').show(); 
+        return false;
+    });
+    $('#Pass_button').click(function(){
+        $ ('#answer').hide(); 
+        $ ('#feedback').hide(); 
+        return false;
+    });
+});
+
+$.fn.Hideall = function() {
+  $ ('#answer').hide();
+  $ ('#feedback').hide();
+}
+
+function count(type) {
+  docRef.get().then((doc) => {
+    if (doc.exists) {
+      if (type == "Pass") {
+        const newData = {pass_num: doc.data().pass_num + 1}
+        docRef.update(newData)
+        .then(() => {
+          console.log("문서가 성공적으로 업데이트되었습니다.");
+        })
+        .catch((error) => {
+          console.log("문서 업데이트 도중 오류가 발생했습니다.", error);
+        });
+        generate();
+      }
+      else {
+        const newData = {keep_num: doc.data().keep_num + 1}
+        docRef.update(newData)
+        .then(() => {
+          console.log("문서가 성공적으로 업데이트되었습니다.");
+        })
+        .catch((error) => {
+          console.log("문서 업데이트 도중 오류가 발생했습니다.", error);
+        });
+        generate();
+      }
+    } else {
+        console.log("문서가 존재하지 않습니다.");
+    }
+    }).catch((error) => {
+    console.log("데이터를 가져오는 도중 오류가 발생했습니다.", error);
+    });
+}
 </script>
 </body>
 </html>

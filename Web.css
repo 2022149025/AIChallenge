@@ -17,7 +17,7 @@ section{
 #grid_container{
     width: 80%;
     display: grid;
-    grid-template-columns: 1fr 2.3fr 5fr 1.5fr;
+    grid-template-columns: 1fr 2.3fr 4.5fr 2fr;
     text-align: left;
     font-size: 20px;
 }
@@ -60,4 +60,37 @@ section{
 
 #Step_correct{
     padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+#correct, #wrong{
+    width: 80px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 3px 3px 6px #7A8187;
+    border-radius: 2rem;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: bold;
+    background-color: white;
+}
+
+#correct{   
+    color: #18ae79;
+}
+
+#wrong{
+    color: #d05700;
+}
+
+#wrong:hover{
+    width: 100px;
+    height: 50px;
+    transition: .2s;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
 }
